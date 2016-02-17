@@ -172,45 +172,25 @@ We use API Tokens to identify users making API calls. You can apply for your API
 We offer two types of token: Development and Production. For Development, your API Token request is immediately granted and you make API calls against [https://rm-api-sandbox.appspot.com/api/v1](https://rm-api-sandbox.appspot.com/api/v1). 
 For Production, you make API calls against our root production endpoint: [https://www.realmassive.com/api/v1](https://www.realmassive.com/api/v1). Production applications are reviewed by a RealMassive team member before approval.
 
-The flavor of token we use is the [JSON Web Token (JWT)](http://jwt.io/). JWT is a flexible solution, allowing you
-to choose from a list of encoding algorithms that best suit your needs and development languages.
-
 ### Using your API Token
   1. Apply for and receive your API token.
-  1. Grab a JWT encoding [library for your application](http://jwt.io/#libraries).
-  1. When making API calls, use the above library and your ClientID to encode the relative portion of the URL and all of the request parameters as follows: ```{ 'jti': <client_id>, 'url': <relative_url_plus_params> }``` see [Python example below](#api-token-example).
-  1. In your HTTP request set the following two headers: ```X-Authorization: TOKEN-ENCODED-REQUEST``` and ```X-Client-Id: YOUR-CLIENT-ID```
+  1. In your HTTP requests set the following header: ```X-Client-Id: YOUR-TOKEN```.
   1. Reap the rewards of the first open API in Commercial Real Estate.
 
 ### Example <a name="api-token-example"></a> 
 The following Python example encodes a sample API call. To test this, copy and paste this into a script and set your
 Client ID for the Development Environment.
 ```python
-import jwt
 import requests
 
 __ENDPOINT = "https://rm-api-sandbox.appspot.com"
 
 __CLIENT_ID = YOUR-CLIENT-ID
-
-def jwt_encode(relative_url, algorithm):
-    """Encode the relative URL using the algorithm and ClientID.
-
-       PARAMETERS
-        relative_url : (string) query URL
-        algorithm : (string) algorithm name used for encoding
-
-       RETURNS
-        Request headers as a dictionary appropriate
-        for an API call.
-    """
-    return {'X-Client-Id': __CLIENT_ID }
+__HEADERS = {'X-Client-Id': __CLIENT_ID }
 
 def test():
     url = '/api/v1/markets'
-    jwt_headers = jwt_encode(url, algorithm="HS256")
-    response = requests.get(__ENDPOINT + url,
-                            headers=jwt_headers)
+    response = requests.get(__ENDPOINT + url, headers=HEADERS)
     assert response.status_code == 200
 
 if __name__ == '__main__':
