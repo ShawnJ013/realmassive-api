@@ -2642,18 +2642,16 @@ TODO: Document payload. Route documented for users.
         []
 
 
-## Space Brochure [/api/v1/space/{space_key}/brochures/{brochure_key}]
-### Get a Specific Brochure for this Space [GET]
+## Space Brochure [/api/v1/spaces/{space_key}/flier]
+### Get a Brochure for this Space [GET]
 
-TODO: Document payload. Route documented for users.
 
 + Parameters
     + space_key (required, string) ... A specific Space's keystring.
-    + brochure_key (required, string) ... A specific brochure's keystring.
 
-+ Response 200 (application/json)
++ Response 200 (application/pdf)
 
-        []
+        PDF File
 
 ## Spaces Collection [/api/v1/spaces{?limit,cursor}]
 ### List all Spaces [GET]
